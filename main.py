@@ -2,7 +2,7 @@
 from time import sleep
 class Bank:
     def __init__(self,saved_money = 0, owner = 'Jackson', locked_money = 0):
-        self.saved_money = 1000
+        self.saved_money = saved_money
         self.owner = owner
         self.locked_money = 1000
 
@@ -34,12 +34,15 @@ class Bank:
 
             elif self.option == '3':
                 withdraw = int(input("Value to take out: R$"))
-                self.saved_money -= withdraw
-                print('Processing...')
-                sleep(0.5)
-                print(f'R$ {withdraw:.2f} withdrawn successfully!')
-                sleep(0.5)
-                print('Process is Finished!')
+                if withdraw >= self.saved_money:
+                    self.saved_money -= withdraw
+                    print('Processing...')
+                    sleep(0.5)
+                    print(f'R$ {withdraw:.2f} withdrawn successfully!')
+                    sleep(0.5)
+                    print('Process is Finished!')
+                else:
+                    print('You have no money enough!')
 
 
 
@@ -47,7 +50,7 @@ class Bank:
                 print("To take out a loan, an interest rate of 5% per month will apply")
                 sleep(3)
                 sure = input('Are you sure to take out the loan? Y/N ').upper()
-                if sure == 'Y':
+                if sure == 'Y' and self.saved_money > 100:
                     loan_money = int(input('Value to get loan R$'))
                     tax = loan_money + (loan_money * 5 / 100)
                     print(f'{loan_money:.2f} Will be deposited into your account right away.')
@@ -55,9 +58,8 @@ class Bank:
                     print('Setting your debit...')
                     sleep(1.4)
                     print(f'With a loan, next month your debit is: {tax:.2f}')
-                    self.saved_money -= tax
-                    print(self.saved_money)
-                    self.saved_money += loan_money
+                    self.saved_money += tax
+                    print(f'current balance: {self.saved_money}')
                 else:
                     print("Bye")
             elif self.option == '5':
