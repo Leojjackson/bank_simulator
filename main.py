@@ -44,12 +44,19 @@ class Bank:
 
 
             elif self.option == '4':
-                print("To take out a loan, an interest rate of 1.6% per month will apply")
+                print("To take out a loan, an interest rate of 5% per month will apply")
                 sleep(3)
-                sure = input('Are you sure to take out the loan? Y/N').upper()
+                sure = input('Are you sure to take out the loan? Y/N ').upper()
                 if sure == 'Y':
                     loan_money = int(input('Value to get loan R$'))
+                    tax = loan_money + (loan_money * 5 / 100)
                     print(f'{loan_money:.2f} Will be deposited into your account right away.')
+                    sleep(1)
+                    print('Setting your debit...')
+                    sleep(1.4)
+                    print(f'With a loan, next month your debit is: {tax:.2f}')
+                    self.saved_money -= tax
+                    print(self.saved_money)
                     self.saved_money += loan_money
                 else:
                     print("Bye")
